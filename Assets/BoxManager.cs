@@ -5,30 +5,24 @@ using UnityEngine;
 public class BoxManager : MonoBehaviour
 {
     public List<ColorData> colorPalette = new List<ColorData>();
-    public List<GameObject> boxes = new List<GameObject>();
+    public List<BoxObject> boxes = new List<BoxObject>();
     public BoxObject referenceBox;
     public BoxObject boxPrefab;
     public Vector2 dimensions;
 
-    //ABSTRACTION
+    //ENCAPSULATION
+    public int CurrentColorIndex {  get; private set; }
     public string CurrentColorID { get; private set; }
-
-    private void Start()
-    {
-        int colorIndex = UnityEngine.Random.Range(0, colorPalette.Count);
-        referenceBox.InitializeBox(colorPalette[colorIndex]);
-        CurrentColorID = colorPalette[colorIndex].colorID;
-        CreateBoxes();
-    }
 
     public void CreateBoxes()
     {
         foreach (var box in boxes)
         {
-            Destroy(box);
+            if (box != null)
+                Destroy(box.gameObject);
         }
 
-        boxes = new List<GameObject>();
+        boxes = new List<BoxObject>();
 
         float xStart = (dimensions.x - 1) * -0.5f;
         float yStart = (dimensions.y - 1) * -0.5f;
@@ -41,8 +35,29 @@ public class BoxManager : MonoBehaviour
                 spawnedBox.transform.localPosition = new Vector3(xStart + x, yStart + y, 0f);
                 int colorIndex = UnityEngine.Random.Range(0, colorPalette.Count);
                 spawnedBox.InitializeBox(colorPalette[colorIndex]);
-                boxes.Add(spawnedBox.gameObject);
+                boxes.Add(spawnedBox);
             }
         }
+    }
+
+    public void SkipRound()
+    {
+        foreach (var box in boxes)
+        {
+            if (box != null)
+                Destroy(box.gameObject);
+        }
+
+        boxes = new List<BoxObject>();
+
+        int colorIndex = UnityEngine.Random.Range(0, colorPalette.Count);
+        CurrentColorIndex = colorIndex;
+        referenceBox.InitializeBox(colorPalette[colorIndex]);
+        CurrentColorID = colorPalette[colorIndex].colorID;
+        CreateBoxes();
+    }
+
+    public void PaintAllToActiveColor()
+    {
     }
 }
