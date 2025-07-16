@@ -24,7 +24,6 @@ public class BoxObject : MonoBehaviour
 
     private void OnMouseDown()
     {
-        Debug.Log(_colorData.colorID + " " + _boxManager.CurrentColorID);
         if (_colorData.colorID == _boxManager.CurrentColorID)
         {
             _scoreManager.AddScore();

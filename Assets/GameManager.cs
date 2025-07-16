@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour
         if (countdown < 0)
         {
             SkipBoxes();
+            AddRandomPowerUp();
             countdown = 3;
         }
 

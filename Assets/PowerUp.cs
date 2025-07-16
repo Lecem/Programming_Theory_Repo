@@ -27,5 +27,9 @@ public class PowerUp : MonoBehaviour
         }
     }
 
-    public void AddPowerUp() => Amount += 1;
+    public void AddPowerUp()
+    {
+        Amount += 1;
+        amountText.text = Amount.ToString();
+    }
 }
