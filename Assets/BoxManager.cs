@@ -56,8 +56,4 @@ public class BoxManager : MonoBehaviour
         CurrentColorID = colorPalette[colorIndex].colorID;
         CreateBoxes();
     }
-
-    public void PaintAllToActiveColor()
-    {
-    }
 }

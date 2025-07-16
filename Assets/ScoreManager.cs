@@ -12,6 +12,7 @@ public class ScoreManager : MonoBehaviour
         UpdateScoreTextUI();
     }
 
+    // POLYMORPHISM
     public void AddScore()
     {
         score++;
